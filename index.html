@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng 19/11 - Lớp K19</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            z-index: -1;
+        }
+
+        .background::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(102, 126, 234, 0.1) 1px, transparent 1px),
+                radial-gradient(circle, rgba(118, 75, 162, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Password Screen */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .password-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Envelope Container */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope {
+            width: 400px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .envelope.opening {
+            animation: envelopeOpen 1.5s ease-out forwards;
+        }
+
+        @keyframes envelopeOpen {
+            0% {
+                transform: rotateX(0deg);
+            }
+            50% {
+                transform: rotateX(-15deg) scale(1.1);
+            }
+            100% {
+                transform: rotateX(0deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0 0 10px 10px;
+            transform-origin: top;
+            transition: transform 0.6s;
+        }
+
+        .envelope.opening .envelope-front {
+            transform: rotateX(-180deg);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 0;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            clip-path: polygon(0 0, 50% 60%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.6s;
+            z-index: 3;
+        }
+
+        .envelope.opening .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        .letter-preview {
+            position: absolute;
+            width: 90%;
+            height: 85%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.6s;
+            z-index: 2;
+        }
+
+        .envelope.opening .letter-preview {
+            transform: translate(-50%, -150%) scale(1.2);
+            opacity: 0;
+        }
+
+        .letter-preview-content {
+            text-align: center;
+            color: #333;
+        }
+
+        .letter-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .letter-preview h3 {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .letter-preview p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Password Input */
+        .password-input-container {
+            text-align: center;
+        }
+
+        .password-label {
+            font-size: 0.9em;
+            color: #999;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .password-input {
+            width: 200px;
+            padding: 12px 20px;
+            font-size: 1.2em;
+            text-align: center;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            letter-spacing: 5px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .password-input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+            transform: scale(1.05);
+        }
+
+        .password-input.error {
+            border-color: #e74c3c;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .password-hint {
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* Main Content - Hidden initially */
+        .main-content-wrapper {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s 0.5s, transform 1s 0.5s;
+        }
+
+        .main-content-wrapper.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+            text-shadow: 0 0 80px rgba(102, 126, 234, 0.5);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 2em;
+            color: #ffd700;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s 0.3s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-date {
+            font-size: 1.5em;
+            color: #aaa;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s 0.6s backwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .scroll-indicator i {
+            font-size: 2em;
+            color: #667eea;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section {
+            margin-bottom: 100px;
+        }
+
+        /* Letter Card */
+        .letter-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .letter-header h2 {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .letter-header .subtitle {
+            font-size: 1.2em;
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .letter-body {
+            line-height: 2;
+            font-size: 1.1em;
+            color: #ddd;
+        }
+
+        .letter-body p {
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .letter-body ul {
+            margin: 20px 0 20px 30px;
+        }
+
+        .letter-body li {
+            margin-bottom: 15px;
+        }
+
+        .letter-signature {
+            text-align: right;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px dashed rgba(255, 255, 255, 0.2);
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Letter Envelope Animation */
+        .letter-envelope-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .letter-valentines {
+            position: relative;
+            cursor: pointer;
+            animation: up 3s linear infinite;
+        }
+
+        @keyframes up {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .letter-envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #667eea;
+            transition: all 0.3s;
+        }
+
+        .letter-valentines:hover .letter-envelope {
+            box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .letter-envelope:before {
+            background-color: #764ba2;
+            content: "";
+            position: absolute;
+            width: 212px;
+            height: 212px;
+            transform: rotate(45deg);
+            top: -105px;
+            left: 44px;
+            border-radius: 30px 0 0 0;
+        }
+
+        .letter-card-inside {
+            position: absolute;
+            background-color: #fff;
+            width: 270px;
+            height: 170px;
+            top: 5px;
+            left: 15px;
+            box-shadow: -5px -5px 100px rgba(0, 0, 0, 0.4);
+            transition: top 0.5s;
+        }
+
+        .letter-valentines:hover .letter-card-inside {
+            top: -90px;
+        }
+
+        .letter-card-inside:before {
+            content: "";
+            position: absolute;
+            border: 3px solid #667eea;
+            border-style: dotted;
+            width: 240px;
+            height: 140px;
+            left: 12px;
+            top: 12px;
+        }
+
+        .letter-text-preview {
+            position: absolute;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            text-align: center;
+            line-height: 25px;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .letter-heart-icon {
+            background-color: #d62828;
+            display: inline-block;
+            height: 30px;
+            margin: 0 10px;
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-45deg);
+            width: 30px;
+        }
+
+        .letter-heart-icon:before,
+        .letter-heart-icon:after {
+            content: "";
+            background-color: #d62828;
+            border-radius: 50%;
+            height: 30px;
+            position: absolute;
+            width: 30px;
+        }
+
+        .letter-heart-icon:before {
+            top: -15px;
+            left: 0;
+        }
+
+        .letter-heart-icon:after {
+            left: 15px;
+            top: 0;
+        }
+
+        .letter-hearts-float {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+        }
+
+        .letter-heart-1, .letter-heart-2, .letter-heart-3, .letter-heart-4, .letter-heart-5 {
+            background-color: #667eea;
+            display: inline-block;
+            height: 10px;
+            position: absolute;
+            transform: rotate(-45deg);
+            width: 10px;
+        }
+
+        .letter-heart-1:before, .letter-heart-1:after,
+        .letter-heart-2:before, .letter-heart-2:after,
+        .letter-heart-3:before, .letter-heart-3:after,
+        .letter-heart-4:before, .letter-heart-4:after,
+        .letter-heart-5:before, .letter-heart-5:after {
+            content: "";
+            background-color: #667eea;
+            border-radius: 50%;
+            height: 10px;
+            position: absolute;
+            width: 10px;
+        }
+
+        .letter-heart-1:before, .letter-heart-2:before, .letter-heart-3:before, .letter-heart-4:before, .letter-heart-5:before {
+            top: -5px;
+            left: 0;
+        }
+
+        .letter-heart-1:after, .letter-heart-2:after, .letter-heart-3:after, .letter-heart-4:after, .letter-heart-5:after {
+            left: 5px;
+            top: 0;
+        }
+
+        .letter-heart-1 {
+            left: 40px;
+            animation: floatHeart 1s ease-out infinite;
+        }
+
+        .letter-heart-2 {
+            left: 80px;
+            animation: floatHeart 2s ease-out infinite;
+        }
+
+        .letter-heart-3 {
+            left: 120px;
+            animation: floatHeart 1.5s ease-out infinite;
+        }
+
+        .letter-heart-4 {
+            left: 160px;
+            animation: floatHeart 2.3s ease-out infinite;
+        }
+
+        .letter-heart-5 {
+            left: 200px;
+            animation: floatHeart 1.7s ease-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(0.3);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-80px) rotate(-45deg) scale(1.3);
+                opacity: 0.5;
+            }
+        }
+
+        .letter-envelope-front {
+            position: absolute;
+            border-right: 180px solid #764ba2;
+            border-top: 95px solid transparent;
+            border-bottom: 100px solid transparent;
+            left: 120px;
+            top: 5px;
+            width: 0;
+            height: 0;
+            z-index: 10;
+        }
+
+        .letter-envelope-front:before {
+            position: absolute;
+            content: "";
+            border-left: 300px solid #667eea;
+            border-top: 195px solid transparent;
+            left: -120px;
+            top: -95px;
+            width: 0;
+            height: 0;
+        }
+
+        .letter-shadow {
+            position: absolute;
+            width: 330px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+            top: 215px;
+            left: -15px;
+            animation: scaleShadow 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes scaleShadow {
+            0%, 100% {
+                transform: scaleX(1);
+            }
+            50% {
+                transform: scaleX(0.85);
+            }
+        }
+
+        .letter-click-hint {
+            text-align: center;
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Full Letter Modal */
+        .letter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .letter-modal.show {
+            display: flex;
+        }
+
+        .letter-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            overflow-y: auto;
+            animation: modalShow 0.5s ease-out;
+        }
+
+        @keyframes modalShow {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .letter-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #667eea;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+            transition: all 0.3s;
+        }
+
+        .letter-modal-close:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .letter-modal-body {
+            color: #333;
+        }
+
+        .letter-modal-body h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .letter-modal-body p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .letter-modal-body ul {
+            margin: 20px 0 20px 30px;
+        }
+
+        .letter-modal-body li {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .letter-modal-body .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Floating Hearts */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            animation: floatUp 10s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -50px;
+                opacity: 1;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+            }
+        }
+
+        /* Floating Polaroids */
+        .floating-polaroids {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .polaroid {
+            position: absolute;
+            width: 100px;
+            background: white;
+            padding: 10px;
+            padding-bottom: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: floatUpRotate 10s linear forwards;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+        }
+
+        @keyframes floatUpRotate {
+            0% {
+                bottom: -150px;
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Balloons */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 2.5em;
+            animation: floatUpBalloon 10s ease-in forwards;
+        }
+
+        @keyframes floatUpBalloon {
+            0% {
+                bottom: -50px;
+                opacity: 1;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9996;
+            animation: confettiFall 5s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Car Animation */
+        .car-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            pointer-events: none;
+            z-index: 9995;
+            display: none;
+        }
+
+        .car-container.show {
+            display: block;
+        }
+
+        .road {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #444 0%, #444 50%, transparent 50%, transparent 100%);
+            background-size: 40px 5px;
+            animation: moveRoad 1s linear infinite;
+        }
+
+        @keyframes moveRoad {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 40px 0;
+            }
+        }
+
+        .car {
+            position: absolute;
+            bottom: 10px;
+            font-size: 3em;
+            animation: moveCar 8s linear infinite;
+        }
+
+        @keyframes moveCar {
+            0% {
+                left: -100px;
+            }
+            100% {
+                left: 110%;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .footer-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .footer-text {
+            color: #aaa;
+            font-size: 1.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .envelope {
+                width: 320px;
+                height: 240px;
+            }
+            .hero-title {
+                font-size: 3em;
+            }
+            .hero-subtitle {
+                font-size: 1.5em;
+            }
+            .letter-card {
+                padding: 30px 20px;
+            }
+            .letter-body {
+                font-size: 1em;
+            }
+            .polaroid {
+                width: 80px;
+            }
+            .polaroid-image {
+                height: 70px;
+                font-size: 1.5em;
+            }
+            .car {
+                font-size: 2em;
+            }
+            .car-container {
+                height: 100px;
+            }
+            .balloon {
+                font-size: 1.8em;
+            }
+            .letter-envelope {
+                width: 250px;
+                height: 170px;
+            }
+            .letter-card-inside {
+                width: 220px;
+                height: 140px;
+            }
+            .letter-modal-content {
+                width: 95%;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="floating-polaroids" id="floatingPolaroids"></div>
+    <div class="balloon-container" id="balloonContainer"></div>
+    <div class="car-container">
+        <div class="road"></div>
+        <div class="car">🚗</div>
+    </div>
+
+    <!-- Password Screen -->
+    <div class="password-screen" id="passwordScreen">
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-flap"></div>
+                <div class="letter-preview">
+                    <div class="letter-preview-content">
+                        <div class="letter-icon">💌</div>
+                        <h3>Thư Chúc Mừng 19/11</h3>
+                        <p>Dành tặng các bạn nam lớp K19</p>
+                        
+                        <div class="password-input-container">
+                            <label class="password-label">Nhập mật khẩu để mở thư:</label>
+                            <input 
+                                type="password" 
+                                class="password-input" 
+                                id="passwordInput" 
+                                maxlength="4"
+                                placeholder="••••"
+                                autocomplete="off"
+                            >
+                            <p class="password-hint">💡 Gợi ý: Ngày Quốc tế Nam giới (ddmm)</p>
+                            <p class="error-message" id="errorMessage">❌ Mật khẩu không đúng!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="envelope-front"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden initially) -->
+    <div class="main-content-wrapper" id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">19/11</h1>
+            <h2 class="hero-subtitle">INTERNATIONAL MEN'S DAY</h2>
+            <p class="hero-date">Dành tặng toàn bộ "Nam Thần" Lớp K19 💙</p>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Letter Section -->
+            <section class="section">
+                <div class="letter-card">
+                    <div class="letter-header">
+                        <h2>💌 Thư Chúc Mừng 19/11</h2>
+                        <p class="subtitle">Dành tặng các bạn nam lớp K19</p>
+                    </div>
+                    
+                    <div class="letter-envelope-container">
+                        <div class="letter-valentines" onclick="openLetterModal()">
+                            <div class="letter-envelope"></div>
+                            <div class="letter-envelope-front"></div>
+                            <div class="letter-card-inside">
+                                <div class="letter-text-preview">
+                                    Happy<br/>
+                                    Men's<br/>
+                                    Day!
+                                </div>
+                                <div class="letter-heart-icon"></div>
+                            </div>
+                            <div class="letter-hearts-float">
+                                <div class="letter-heart-1"></div>
+                                <div class="letter-heart-2"></div>
+                                <div class="letter-heart-3"></div>
+                                <div class="letter-heart-4"></div>
+                                <div class="letter-heart-5"></div>
+                            </div>
+                            <div class="letter-shadow"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="letter-click-hint">
+                        ✨ Di chuột vào để xem thư ✨<br/>
+                        📬 Click để mở thư đầy đủ 📬
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3 class="footer-title">Lớp K19 - Một Gia Đình</h3>
+            <p class="footer-text">
+                Dù thời gian trôi qua, tình cảm này sẽ mãi trong tim 💙
+            </p>
+            <p class="footer-text" style="margin-top: 20px; font-size: 0.9em; opacity: 0.7;">
+                International Men's Day 2024
+            </p>
+        </footer>
+    </div>
+
+    <!-- Letter Modal -->
+    <div class="letter-modal" id="letterModal">
+        <div class="letter-modal-content">
+            <span class="letter-modal-close" onclick="closeLetterModal()">×</span>
+            <div class="letter-modal-body">
+                <h2>Thư Gửi Các Bạn</h2>
+                <p style="text-align: center; font-style: italic; color: #999; margin-bottom: 30px;">
+                    Từ trái tim của cả lớp K19
+                </p>
+                
+                <p><strong class="highlight">Kính gửi các bạn - những "trụ cột" của lớp K19,</strong></p>
+                
+                <p>
+                    Nhân dịp <strong class="highlight">Ngày Quốc tế Nam giới 19/11</strong>, chúng mình - thay mặt 
+                    cả lớp - muốn gửi đến các bạn những lời chúc tốt đẹp nhất và lời tri ân sâu sắc nhất! 🎉
+                </p>
+
+                <p>
+                    Từ những ngày đầu bước chân vào giảng đường đại học, các bạn đã và đang là 
+                    <strong class="highlight">nguồn động lực</strong>, là <strong class="highlight">chỗ dựa vững chắc</strong>, 
+                    và là <strong class="highlight">những người bạn tuyệt vời</strong> mà chúng mình có thể tin cậy.
+                </p>
+
+                <p>
+                    Dù là thức khuya để hoàn thành bài tập, hay chia sẻ tài liệu học tập, giải thích bài cho bạn bè, 
+                    hay cùng nhau tổ chức các hoạt động lớp, hay đơn giản chỉ là một nụ cười, một câu đùa vui vẻ 
+                    giữa giờ học căng thẳng - tất cả đều đã góp phần tạo nên một 
+                    <strong class="highlight">Lớp K19 đoàn kết và ấm áp</strong> như hôm nay.
+                </p>
+
+                <p>Nhân ngày 19/11, chúng mình chúc các bạn:</p>
+                <ul>
+                    <li>🌟 Luôn <strong class="highlight">khỏe mạnh, hạnh phúc và tràn đầy năng lượng</strong></li>
+                    <li>📚 Học tập tiến bộ, <strong class="highlight">đạt được những thành tích cao nhất</strong></li>
+                    <li>💼 Tương lai rộng mở, trở thành những <strong class="highlight">người thành công</strong> trong sự nghiệp</li>
+                    <li>💕 May mắn trong cuộc sống và tình yêu</li>
+                    <li>🎯 Hoàn thành mọi ước mơ và khát vọng</li>
+                    <li>👨‍👩‍👧‍👦 Gia đình luôn ấm no, hạnh phúc</li>
+                    <li>🌈 Luôn giữ vững niềm tin và đam mê với cuộc sống</li>
+                </ul>
+
+                <p>
+                    Các bạn không chỉ là bạn học, là đồng đội - các bạn còn là những 
+                    <strong class="highlight">"người hùng thầm lặng"</strong> của lớp chúng mình. 
+                    Mỗi ngày, các bạn đều chứng minh rằng sức mạnh thực sự không chỉ nằm ở thể chất, 
+                    mà còn ở <strong class="highlight">trái tim nhân hậu</strong>, <strong class="highlight">ý chí kiên cường</strong>, 
+                    và <strong class="highlight">tinh thần trách nhiệm</strong>.
+                </p>
+
+                <p>
+                    <strong class="highlight">Cảm ơn các bạn</strong> vì đã luôn bên cạnh, đồng hành và tạo nên 
+                    những kỷ niệm đẹp không thể nào quên trong hành trình đại học này. 
+                    Dù mai sau mỗi người một ngả, nhưng tình cảm và kỷ niệm với lớp K19 
+                    sẽ mãi mãi là một phần không thể thiếu trong cuộc đời mỗi người.
+                </p>
+
+                <p style="text-align: center; font-size: 1.3em; color: #667eea; margin-top: 40px; font-weight: 600;">
+                    🎉 HAPPY INTERNATIONAL MEN'S DAY! 🎉
+                </p>
+
+                <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">
+                    <strong class="highlight">Các bạn là niềm tự hào của Lớp K19!</strong>
+                </p>
+
+                <div style="text-align: right; margin-top: 50px; padding-top: 30px; border-top: 2px dashed #667eea;">
+                    <p style="color: #667eea; font-weight: 600;">Với tất cả tình cảm và sự trân trọng,</p>
+                    <p style="color: #667eea; font-weight: 600;"><strong>Toàn thể Lớp K19 💙</strong></p>
+                    <p style="font-size: 0.9em; color: #aaa; margin-top: 10px;">19/11/2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://audio.jukehost.co.uk/IxemVj7ywy6KKyY0ej78OvdoO16yusgB" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const passwordInput = document.getElementById('passwordInput');
+        const envelope = document.getElementById('envelope');
+        const passwordScreen = document.getElementById('passwordScreen');
+        const mainContent = document.getElementById('mainContent');
+        const errorMessage = document.getElementById('errorMessage');
+        const bgMusic = document.getElementById('bgMusic');
+        const correctPassword = '1911';
+
+        // Password check
+        passwordInput.addEventListener('input', function() {
+            if (this.value.length === 4) {
+                if (this.value === correctPassword) {
+                    // Correct password
+                    envelope.classList.add('opening');
+                    
+                    // Play music
+                    bgMusic.volume = 0.5; // Set volume to 50%
+                    bgMusic.play().catch(e => console.log('Audio play failed:', e));
+                    
+                    setTimeout(() => {
+                        passwordScreen.classList.add('hidden');
+                        mainContent.classList.add('visible');
+                        document.querySelector('.car-container').classList.add('show');
+                        startAnimations();
+                    }, 1500);
+                } else {
+                    // Wrong password
+                    this.classList.add('error');
+                    errorMessage.classList.add('show');
+                    
+                    setTimeout(() => {
+                        this.classList.remove('error');
+                        errorMessage.classList.remove('show');
+                        this.value = '';
+                    }, 1000);
+                }
+            }
+        });
+
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartEmojis = ['💙', '💚', '💛', '💜', '❤️'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 13000);
+            }, 3000);
+        }
+
+        // Create floating polaroids
+        function createFloatingPolaroids() {
+            const container = document.getElementById('floatingPolaroids');
+            
+            // Danh sách ảnh và text
+            const polaroidItems = [
+                { type: 'image', url: 'https://picsum.photos/100/100?random=1' },
+                { type: 'image', url: 'https://picsum.photos/100/100?random=2' },
+                { type: 'image', url: 'https://picsum.photos/100/100?random=3' },
+                { type: 'image', url: 'https://picsum.photos/100/100?random=4' },
+                { type: 'image', url: 'https://picsum.photos/100/100?random=5' },
+                { type: 'image', url: 'https://picsum.photos/100/100?random=6' },
+            ];
+            
+            setInterval(() => {
+                const polaroid = document.createElement('div');
+                polaroid.className = 'polaroid';
+                const item = polaroidItems[Math.floor(Math.random() * polaroidItems.length)];
+                
+                if (item.type === 'text') {
+                    polaroid.innerHTML = `
+                        <div style="width: 100%; height: 100px; background: ${item.color}; display: flex; align-items: center; justify-content: center; font-size: 2em; color: white; font-weight: bold;">
+                            ${item.content}
+                        </div>
+                    `;
+                } else {
+                    polaroid.innerHTML = `
+                        <img src="${item.url}" style="width: 100%; height: 100px; object-fit: cover;" alt="K19">
+                    `;
+                }
+                
+                polaroid.style.left = Math.random() * 100 + '%';
+                polaroid.style.animationDuration = (Math.random() * 5 + 10) + 's';
+                
+                container.appendChild(polaroid);
+
+                setTimeout(() => {
+                    polaroid.remove();
+                }, 15000);
+            }, 4000);
+        }
+
+        // Create floating balloons
+        function createFloatingBalloons() {
+            const container = document.getElementById('balloonContainer');
+            const balloonEmojis = ['🎈', '🎈', '🎈', '🎈', '🎈'];
+            
+            setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.innerHTML = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                
+                container.appendChild(balloon);
+
+                setTimeout(() => {
+                    balloon.remove();
+                }, 13000);
+            }, 3500);
+        }
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#667eea', '#764ba2', '#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1'];
+            
+            setInterval(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }, 300);
+        }
+
+        // Smooth scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) {
+                scrollIndicator.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: window.innerHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Auto focus on password input
+            passwordInput.focus();
+        });
+
+        // Open/Close Letter Modal
+        function openLetterModal() {
+            document.getElementById('letterModal').classList.add('show');
+        }
+
+        function closeLetterModal() {
+            document.getElementById('letterModal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('letterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLetterModal();
+            }
+        });
+
+        // Start animations when password is correct
+        function startAnimations() {
+            createFloatingHearts();
+            createFloatingPolaroids();
+            createFloatingBalloons();
+            createConfetti();
+        }
+    </script>
+</body>
+</html>
