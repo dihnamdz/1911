@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng 19/11 - Lớp [tên lớp]</title>
+    <title>Chúc Mừng 19/11 - Lớp EE0001-K51 TMĐT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    
+    <!-- Preload images -->
+    <link rel="preload" as="image" href="https://i.ibb.co/hzfskGJ/1.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/jP9nSBch/2.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/4nTNbf8v/3.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/Zs5WsZT/4.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/Z1cvK5fJ/5.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/3mBLh9Z3/6.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/G383x39t/7.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/8LbxsKb2/8.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/FN70tMQ/9-2.jpg">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
         
@@ -796,6 +808,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 9998;
+            overflow: hidden;
         }
 
         .polaroid {
@@ -804,26 +817,15 @@
             background: white;
             padding: 10px;
             padding-bottom: 40px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation: floatUpRotate 10s linear forwards;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.05s linear;
+            will-change: transform, left, top;
         }
 
         .polaroid img {
             width: 100%;
             height: auto;
-        }
-
-        @keyframes floatUpRotate {
-            0% {
-                bottom: -150px;
-                opacity: 1;
-                transform: rotate(0deg);
-            }
-            100% {
-                bottom: 110%;
-                opacity: 0;
-                transform: rotate(360deg);
-            }
+            display: block;
         }
 
         /* Balloons */
@@ -1015,7 +1017,7 @@
                     <div class="letter-preview-content">
                         <div class="letter-icon">💌</div>
                         <h3>Thư Chúc Mừng 19/11</h3>
-                        <p>Dành tặng các bạn nam lớp [tên lớp]</p>
+                        <p>Dành tặng các bạn nam lớp EE0001-K51 TMĐT</p>
                         
                         <div class="password-input-container">
                             <label class="password-label">Nhập mật khẩu để mở thư:</label>
@@ -1043,7 +1045,7 @@
         <section class="hero">
             <h1 class="hero-title">19/11</h1>
             <h2 class="hero-subtitle">INTERNATIONAL MEN'S DAY</h2>
-            <p class="hero-date">Dành tặng toàn bộ "Nam Thần" Lớp [tên lớp] 💙</p>
+            <p class="hero-date">Dành tặng toàn bộ "Nam Thần" Lớp EE0001-K51 TMĐT 💙</p>
             <div class="scroll-indicator">
                 <i class="fas fa-chevron-down"></i>
             </div>
@@ -1056,7 +1058,7 @@
                 <div class="letter-card">
                     <div class="letter-header">
                         <h2>💌 Thư Chúc Mừng 19/11</h2>
-                        <p class="subtitle">Dành tặng các bạn nam lớp [tên lớp]</p>
+                        <p class="subtitle">Dành tặng các bạn nam lớp EE0001-K51 TMĐT</p>
                     </div>
                     
                     <div class="letter-envelope-container">
@@ -1083,7 +1085,6 @@
                     </div>
                     
                     <p class="letter-click-hint">
-                        ✨ Di chuột vào để xem thư ✨<br/>
                         📬 Click để mở thư đầy đủ 📬
                     </p>
                 </div>
@@ -1092,7 +1093,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <h3 class="footer-title">Lớp [tên lớp] - Một Gia Đình</h3>
+            <h3 class="footer-title">Lớp TMĐT - Một Gia Đình</h3>
             <p class="footer-text">
                 Dù thời gian trôi qua, tình cảm này sẽ mãi trong tim 💙
             </p>
@@ -1107,68 +1108,134 @@
         <div class="letter-modal-content">
             <span class="letter-modal-close" onclick="closeLetterModal()">×</span>
             <div class="letter-modal-body">
-                <h2>Thư Gửi Các Bạn</h2>
+                <h2>💌 Chúc Mừng ngày 19/11 - Thương Mại Điện Tử 🎉</h2>
                 <p style="text-align: center; font-style: italic; color: #999; margin-bottom: 30px;">
-                    Từ trái tim của cả lớp [tên lớp]
+                    Gửi đến dàn trai chất lượng cao của lớp Thương mại Điện tử! 
                 </p>
                 
-                <p><strong class="highlight">Kính gửi các bạn - những "trụ cột" của lớp [tên lớp],</strong></p>
-                
-                <p>
-                    Nhân dịp <strong class="highlight">Ngày Quốc tế Nam giới 19/11</strong>, chúng mình - thay mặt 
-                    cả lớp - muốn gửi đến các bạn những lời chúc tốt đẹp nhất và lời tri ân sâu sắc nhất! 🎉
+                    Nhân  <strong class="highlight">Ngày Quốc tế Nam giới 19/11</strong>, xin gửi lời chúc ấm áp nhất 
+                    đến toàn thể các bạn nam – những "chiến binh mang tinh thần TMĐT" vừa nhiệt, vừa vui, vừa… đẹp trai bất chấp điều kiện ngoại cảnh! 🎉
                 </p>
 
                 <p>
-                    Từ những ngày đầu bước chân vào giảng đường đại học, các bạn đã và đang là 
-                    <strong class="highlight">nguồn động lực</strong>, là <strong class="highlight">chỗ dựa vững chắc</strong>, 
-                    và là <strong class="highlight">những người bạn tuyệt vời</strong> mà chúng mình có thể tin cậy.
+                    Chúc anh em lúc nào cũng <strong class="highlight">đẹp trai theo cấp số nhân</strong>, 
+                    <strong class="highlight">phong độ theo cấp số cộng</strong>, và điểm số thì… không theo cấp nào cả, 
+                    chỉ biết tăng đều đều cho lớp mở mày mở mặt!
                 </p>
 
                 <p>
-                    Dù là thức khuya để hoàn thành bài tập, hay chia sẻ tài liệu học tập, giải thích bài cho bạn bè, 
-                    hay cùng nhau tổ chức các hoạt động lớp, hay đơn giản chỉ là một nụ cười, một câu đùa vui vẻ 
-                    giữa giờ học căng thẳng - tất cả đều đã góp phần tạo nên một 
-                    <strong class="highlight">Lớp [tên lớp] đoàn kết và ấm áp</strong> như hôm nay.
-                </p>
-
-                <p>Nhân ngày 19/11, chúng mình chúc các bạn:</p>
-                <ul>
-                    <li>🌟 Luôn <strong class="highlight">khỏe mạnh, hạnh phúc và tràn đầy năng lượng</strong></li>
-                    <li>📚 Học tập tiến bộ, <strong class="highlight">đạt được những thành tích cao nhất</strong></li>
-                    <li>💼 Tương lai rộng mở, trở thành những <strong class="highlight">người thành công</strong> trong sự nghiệp</li>
-                    <li>💕 May mắn trong cuộc sống và tình yêu</li>
-                    <li>🎯 Hoàn thành mọi ước mơ và khát vọng</li>
-                    <li>👨‍👩‍👧‍👦 Gia đình luôn ấm no, hạnh phúc</li>
-                    <li>🌈 Luôn giữ vững niềm tin và đam mê với cuộc sống</li>
-                </ul>
-
-                <p>
-                    Các bạn không chỉ là bạn học, là đồng đội - các bạn còn là những 
-                    <strong class="highlight">"người hùng thầm lặng"</strong> của lớp chúng mình. 
-                    Mỗi ngày, các bạn đều chứng minh rằng sức mạnh thực sự không chỉ nằm ở thể chất, 
-                    mà còn ở <strong class="highlight">trái tim nhân hậu</strong>, <strong class="highlight">ý chí kiên cường</strong>, 
-                    và <strong class="highlight">tinh thần trách nhiệm</strong>.
+                    Hy vọng sau hôm nay, lớp mình bớt ngại, bớt "tàng hình", nói chuyện với nhau nhiều hơn để không chỉ học chung, 
+                    mà còn <strong class="highlight">cười chung – chơi chung – deadline chung – stress chung</strong> và vượt stress cùng nhau. 
+                    Từ nay TMĐT không chỉ là lớp, mà là <strong class="highlight">teamwork version nâng cấp</strong>.
                 </p>
 
                 <p>
-                    <strong class="highlight">Cảm ơn các bạn</strong> vì đã luôn bên cạnh, đồng hành và tạo nên 
-                    những kỷ niệm đẹp không thể nào quên trong hành trình đại học này. 
-                    Dù mai sau mỗi người một ngả, nhưng tình cảm và kỷ niệm với lớp [tên lớp] 
-                    sẽ mãi mãi là một phần không thể thiếu trong cuộc đời mỗi người.
+                    Chúc anh em luôn giữ được sự vui tươi – ga lăng – tử tế, và mong rằng sau này mỗi người đều trở thành những 
+                    <strong class="highlight">anh chủ shop online tương lai</strong>, doanh thu nghìn đơn, ví căng full tiền, 
+                    trái tim ấm như cái lò nướng trong ngày sale. 🔥💰
                 </p>
+                <p style="text-align: center; font-size: 1.2em; color: #667eea; margin: 30px 0; font-weight: 600;">
+                     Và sau đây là đôi lời gửi đến từng “gương mặt vàng trong làng đóng góp vibes cho lớp”:
+                    
+                </p>
+
+                <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Hào – boi chăm chỉ</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Hào luôn giữ được phong thái "cần cù bù siêng năng", làm bài siêu miệt mài, làm việc siêu có tâm. 
+                        Hy vọng mai sau thành chàng trai vừa giỏi việc lớp vừa chắc việc nhà, deadline nào cũng xử đẹp. 📚💪
+                    </p>
+                </div>
+
+                <div style="background: rgba(118, 75, 162, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Hưng – boi lói nhiều (nhưng vui)</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Hưng tiếp tục giữ năng lượng nói chuyện 24/7, góp phần phá tan mọi không khí ngại ngùng. 
+                        Mong boi càng nói càng duyên, càng nói càng cuốn, và càng nói càng gắn kết lớp hơn. 🎤😄
+                    </p>
+                </div>
+
+                <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Thiện – boi năng nổ</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Thiện lúc nào cũng "máu lửa", xông pha mọi hoạt động từ học tới chơi. 
+                        Hy vọng sự nhiệt tình của bạn lan tỏa đủ mạnh để cả lớp bật mood theo luôn. 🔥⚡
+                    </p>
+                </div>
+
+                <div style="background: rgba(118, 75, 162, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ An – boi nhiệt tình</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc An giữ mãi tinh thần "có mặt ở mọi chiến tuyến", ai nhờ gì cũng hỗ trợ, vibe thì lúc nào cũng sáng như ánh đèn studio. 
+                        Người như An đúng chuẩn "người anh em quốc dân". 🌟🤝
+                    </p>
+                </div>
+
+                <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Khoa – cool boy trầm nhưng chất</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Khoa luôn giữ được cái vibe điềm tĩnh, nói ít nhưng chất lượng. 
+                        Hy vọng đời bạn ít drama, nhiều thành công và cực nhiều khoảnh khắc chill. 😎✨
+                    </p>
+                </div>
+
+                <div style="background: rgba(118, 75, 162, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Quyền – boi nhẹ nhàng</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Quyền luôn êm dịu, hiền lành đúng chuẩn "soft boy TMĐT". 
+                        Mong sự nhẹ nhàng của bạn giúp lớp bớt căng, bớt loạn, bớt áp lực và… bớt ồn (một chút xíu). 🌸💙
+                    </p>
+                </div>
+
+                <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Hảo – boi trầm ổn</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Hảo lúc nào cũng giữ được sự ổn định đáng tin cậy, học hành chắc nịch, tính cách trưởng thành. 
+                        Tương lai chắc chắn là hình mẫu "người đàn ông an toàn". 🛡️💼
+                    </p>
+                </div>
+
+                <div style="background: rgba(118, 75, 162, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Triết – boi nghiêm túc</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Triết luôn giữ vững phong thái đĩnh đạc, chỉn chu và nghiêm túc đúng chuẩn "người đàn ông có kế hoạch". 
+                        Hy vọng sự nghiêm túc của bạn chính là nguồn cảm hứng để cả lớp chăm chỉ hơn. 📋👔
+                    </p>
+                </div>
+
+                <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Quang Huy – boi "tỏa sáng âm thầm"</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Quang Huy luôn giữ phong thái ít nói nhưng biết làm, không phô trương nhưng hiệu quả. 
+                        Mong năm nay bạn bật mode tự tin hơn để tỏa sáng đúng thực lực. 💎🌟
+                    </p>
+                </div>
+
+                <div style="background: rgba(118, 75, 162, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <p><strong class="highlight">✨ Thái Huy – boi năng lượng tốt</strong></p>
+                    <p style="padding-left: 20px;">
+                        Chúc Thái Huy tiếp tục lan tỏa vibe tích cực, nhẹ nhàng nhưng ấm, trầm nhưng thân thiện. 
+                        Hy vọng mọi ngày của bạn đều sáng như nụ cười của bạn vậy. 😊☀️
+                    </p>
+                </div>
 
                 <p style="text-align: center; font-size: 1.3em; color: #667eea; margin-top: 40px; font-weight: 600;">
-                    🎉 HAPPY INTERNATIONAL MEN'S DAY! 🎉
+                    🎉 HAPPY 19/11 - INTERNATIONAL MEN'S DAY! 🎉
+                </p>
+
+                <p style="text-align: center; font-size: 1.1em; margin-top: 20px;">
+                    Chúc toàn thể dàn nam thần TMĐT ngày 19/11 vừa vui, vừa chất, vừa rực rỡ như pin 100% — 
+                    <strong class="highlight">không tụt mood, không tụt pin và không tụt… điểm!</strong>
                 </p>
 
                 <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">
-                    <strong class="highlight">Các bạn là niềm tự hào của Lớp [tên lớp]!</strong>
+                    Chúc anh em càng ngày càng <strong class="highlight">đẹp trai, đáng yêu, và thành công</strong> 
+                    đúng chuẩn "đồ án TMĐT không bao giờ fail"! 🎉🔥💙
                 </p>
 
                 <div style="text-align: right; margin-top: 50px; padding-top: 30px; border-top: 2px dashed #667eea;">
                     <p style="color: #667eea; font-weight: 600;">Với tất cả tình cảm và sự trân trọng,</p>
-                    <p style="color: #667eea; font-weight: 600;"><strong>Toàn thể Lớp [tên lớp] 💙</strong></p>
+                    <p style="color: #667eea; font-weight: 600;"><strong>Toàn thể Lớp Thương Mại Điện Tử 💙</strong></p>
                     <p style="font-size: 0.9em; color: #aaa; margin-top: 10px;">19/11/2024</p>
                 </div>
             </div>
@@ -1177,7 +1244,7 @@
 
     <!-- Background Music -->
     <audio id="bgMusic" loop>
-        <source src="https://audio.jukehost.co.uk/IxemVj7ywy6KKyY0ej78OvdoO16yusgB" type="audio/mpeg">
+        <source src="https://audio.jukehost.co.uk/m1Jj0ukIj4CySUxAsfrGjuiIaholtLZ3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -1240,46 +1307,103 @@
             }, 3000);
         }
 
-        // Create floating polaroids
+        // Create floating polaroids - Bay lên xuống KHÔNG BIẾN MẤT
         function createFloatingPolaroids() {
             const container = document.getElementById('floatingPolaroids');
             
-            // Danh sách ảnh và text
+            // Danh sách ảnh - CẬP NHẬT LẠI LINK ẢNH ĐÚNG
             const polaroidItems = [
-                { type: 'image', url: 'https://picsum.photos/100/100?random=1' },
-                { type: 'image', url: 'https://picsum.photos/100/100?random=2' },
-                { type: 'image', url: 'https://picsum.photos/100/100?random=3' },
-                { type: 'image', url: 'https://picsum.photos/100/100?random=4' },
-                { type: 'image', url: 'https://picsum.photos/100/100?random=5' },
-                { type: 'image', url: 'https://picsum.photos/100/100?random=6' },
+                { type: 'image', url: 'https://i.ibb.co/hzfskGJ/1.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/jP9nSBch/2.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/4nTNbf8v/3.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/Zs5WsZT/4.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/Z1cvK5fJ/5.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/3mBLh9Z3/6.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/G383x39t/7.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/8LbxsKb2/8.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/FN70tMQ/9-2.jpg' },
+                { type: 'text', content: 'Triết hơi ngại ngùng với sự điển trai của mình nên không có cơ hội show ảnh 😄' }
             ];
             
-            setInterval(() => {
-                const polaroid = document.createElement('div');
-                polaroid.className = 'polaroid';
-                const item = polaroidItems[Math.floor(Math.random() * polaroidItems.length)];
+            // Preload tất cả ảnh và ĐỢI LOAD XONG
+            const imagePromises = polaroidItems
+                .filter(item => item.type === 'image')
+                .map(item => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => resolve(item.url);
+                        img.onerror = () => {
+                            console.error('Failed to load:', item.url);
+                            resolve(item.url); // Vẫn resolve để không block
+                        };
+                        img.src = item.url;
+                    });
+                });
+            
+            // ĐỢI TẤT CẢ ẢNH LOAD XONG MỚI TẠO POLAROID
+            Promise.all(imagePromises).then(() => {
+                console.log('✅ All images loaded! Creating polaroids...');
                 
-                if (item.type === 'text') {
-                    polaroid.innerHTML = `
-                        <div style="width: 100%; height: 100px; background: ${item.color}; display: flex; align-items: center; justify-content: center; font-size: 2em; color: white; font-weight: bold;">
-                            ${item.content}
-                        </div>
-                    `;
-                } else {
-                    polaroid.innerHTML = `
-                        <img src="${item.url}" style="width: 100%; height: 100px; object-fit: cover;" alt="[tên lớp]">
-                    `;
+                // Tạo tất cả polaroid 1 LẦN DUY NHẤT - KHÔNG XÓA
+                polaroidItems.forEach((item, index) => {
+                    const polaroid = document.createElement('div');
+                    polaroid.className = 'polaroid';
+                    
+                    if (item.type === 'text') {
+                        polaroid.innerHTML = `
+                            <div style="width: 100%; height: 110px; background: white; display: flex; align-items: center; justify-content: center; padding: 15px; text-align: center;">
+                                <div style="font-size: 0.55em; color: #333; line-height: 1.4; font-weight: 600; word-wrap: break-word;">Triết hơi ngại ngùng với sự điển trai của mình nên không có cơ hội show ảnh 😄</div>
+                            </div>
+                        `;
+                    } else {
+                        polaroid.innerHTML = `
+                            <img src="${item.url}" style="width: 100%; height: 90px; object-fit: cover; background: #f0f0f0;" alt="TMĐT" loading="eager">
+                        `;
+                    }
+                    
+                    // Vị trí ban đầu - phân bố ngang đều xếp thành hàng
+                    const spacing = 90 / (polaroidItems.length + 1);
+                    const startLeft = spacing * (index + 1) + 5;
+                    const startTop = Math.random() * 60 + 20; // Vị trí dọc ngẫu nhiên
+                    
+                    polaroid.style.left = startLeft + '%';
+                    polaroid.style.top = startTop + '%';
+                    polaroid.style.position = 'absolute';
+                    polaroid.style.animation = 'none';
+                    
+                    container.appendChild(polaroid);
+                    
+                    // Tạo animation bay lên xuống VĨNH VIỄN
+                    animatePolaroidVertical(polaroid);
+                });
+            }).catch(err => {
+                console.error('Error loading images:', err);
+            });
+        }
+        
+        // Hàm tạo animation bay lên xuống - CHỈ THẲNG, KHÔNG XOAY
+        function animatePolaroidVertical(element) {
+            let posY = parseFloat(element.style.top);
+            let velocityY = (Math.random() * 0.15 + 0.1) * (Math.random() > 0.5 ? 1 : -1); // Tốc độ dọc
+            
+            function animate() {
+                // Cập nhật vị trí dọc
+                posY += velocityY;
+                
+                // Đổi hướng khi chạm biên trên hoặc dưới
+                if (posY <= 5 || posY >= 85) {
+                    velocityY *= -1;
+                    posY = Math.max(5, Math.min(85, posY));
                 }
                 
-                polaroid.style.left = Math.random() * 100 + '%';
-                polaroid.style.animationDuration = (Math.random() * 5 + 10) + 's';
+                // Áp dụng vị trí mới - CHỈ TOP, KHÔNG XOAY, KHÔNG DAO ĐỘNG NGANG
+                element.style.top = posY + '%';
                 
-                container.appendChild(polaroid);
-
-                setTimeout(() => {
-                    polaroid.remove();
-                }, 15000);
-            }, 4000);
+                // Lặp lại VĨNH VIỄN
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
         }
 
         // Create floating balloons
