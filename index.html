@@ -967,28 +967,32 @@
                 font-size: 1em;
             }
             
-            /* Polaroid trên mobile - Tối ưu để đẹp và dễ nhìn */
+            /* Polaroid mobile - TO HƠN */
             .polaroid {
-                width: 70px; /* Nhỏ hơn để vừa màn hình */
-                padding: 6px;
-                padding-bottom: 25px;
+                width: 90px; /* Tăng từ 80px lên 90px */
+                padding: 8px;
+                padding-bottom: 30px;
             }
             
             .polaroid img {
-                height: 60px !important; /* Chiều cao vừa phải */
+                height: 70px !important; /* Tăng từ 60px lên 70px */
+            }
+            .polaroid {
+                width: 80px;
+                padding: 8px;
+                padding-bottom: 30px;
             }
             
-            /* Polaroid chữ của Triết trên mobile */
-            .polaroid div[style*="height: 110px"] {
-                height: 80px !important; /* Giảm chiều cao */
-                padding: 8px !important;
+            .polaroid img {
+                height: 60px !important;
             }
-            
-            .polaroid div[style*="font-size: 0.55em"] {
-                font-size: 0.45em !important; /* Chữ nhỏ hơn để vừa */
-                line-height: 1.2 !important;
+            .polaroid {
+                width: 80px;
             }
-            
+            .polaroid-image {
+                height: 70px;
+                font-size: 1.5em;
+            }
             .car {
                 font-size: 2em;
             }
@@ -1009,38 +1013,6 @@
             .letter-modal-content {
                 width: 95%;
                 padding: 25px;
-            }
-        }
-
-        /* Thêm responsive cho màn hình nhỏ hơn */
-        @media (max-width: 480px) {
-            .polaroid {
-                width: 60px; /* Nhỏ hơn nữa cho màn hình rất nhỏ */
-                padding: 5px;
-                padding-bottom: 20px;
-            }
-            
-            .polaroid img {
-                height: 50px !important;
-            }
-            
-            /* Polaroid chữ của Triết trên màn hình rất nhỏ */
-            .polaroid div[style*="height: 110px"] {
-                height: 70px !important;
-                padding: 6px !important;
-            }
-            
-            .polaroid div[style*="font-size: 0.55em"] {
-                font-size: 0.38em !important;
-                line-height: 1.15 !important;
-            }
-            
-            .hero-title {
-                font-size: 2.5em;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2em;
             }
         }
     </style>
@@ -1355,12 +1327,13 @@
             }, 3000);
         }
 
-        // Create floating polaroids - Bay lên xuống KHÔNG BIẾN MẤT
+        // Create floating polaroids - Tối ưu cho mobile
         function createFloatingPolaroids() {
             const container = document.getElementById('floatingPolaroids');
+            const isMobile = window.innerWidth <= 768;
             
-            // Danh sách ảnh - CẬP NHẬT LẠI LINK ẢNH ĐÚNG
-            const polaroidItems = [
+            // Danh sách ảnh đầy đủ cho desktop
+            const allPolaroidItems = [
                 { type: 'image', url: 'https://i.ibb.co/hzfskGJ/1.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/jP9nSBch/2.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/4nTNbf8v/3.jpg' },
@@ -1370,84 +1343,110 @@
                 { type: 'image', url: 'https://i.ibb.co/G383x39t/7.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/8LbxsKb2/8.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/FN70tMQ/9-2.jpg' },
-                { type: 'text', content: 'Triết hơi ngại ngùng với sự điển trai của mình nên không có cơ hội show ảnh 😄' }
+                { type: 'text', content: 'Triết hơi ngại ngùng với sự điển trai nên không có cơ hội show ảnh 😄' }
             ];
             
-            // Preload tất cả ảnh và ĐỢI LOAD XONG
+            // CHỈ 2 POLAROID CHO MOBILE - random từ danh sách
+            const mobilePolaroidItems = [
+                allPolaroidItems[Math.floor(Math.random() * 9)], // Random 1 ảnh
+                { type: 'text', content: 'Chúc mừng 19/11! 💙' } // 1 text ngắn
+            ];
+            
+            // Chọn danh sách phù hợp
+            const polaroidItems = isMobile ? mobilePolaroidItems : allPolaroidItems;
+            
+            // Preload ảnh
             const imagePromises = polaroidItems
                 .filter(item => item.type === 'image')
                 .map(item => {
-                    return new Promise((resolve, reject) => {
+                    return new Promise((resolve) => {
                         const img = new Image();
                         img.onload = () => resolve(item.url);
-                        img.onerror = () => {
-                            console.error('Failed to load:', item.url);
-                            resolve(item.url); // Vẫn resolve để không block
-                        };
+                        img.onerror = () => resolve(item.url);
                         img.src = item.url;
                     });
                 });
             
-            // ĐỢI TẤT CẢ ẢNH LOAD XONG MỚI TẠO POLAROID
+            // Tạo polaroid sau khi load xong
             Promise.all(imagePromises).then(() => {
-                console.log('✅ All images loaded! Creating polaroids...');
+                console.log('✅ Images loaded! Creating polaroids...');
                 
-                // Tạo tất cả polaroid 1 LẦN DUY NHẤT - KHÔNG XÓA
                 polaroidItems.forEach((item, index) => {
-                    const polaroid = document.createElement('div');
-                    polaroid.className = 'polaroid';
+                    // Delay tạo polaroid trên mobile để load lần lượt
+                    const delay = isMobile ? index * 1000 : 0; // Mobile: mỗi cái cách nhau 1s
                     
-                    if (item.type === 'text') {
-                        polaroid.innerHTML = `
-                            <div style="width: 100%; height: 110px; background: white; display: flex; align-items: center; justify-content: center; padding: 15px; text-align: center;">
-                                <div style="font-size: 0.55em; color: #333; line-height: 1.4; font-weight: 600; word-wrap: break-word;">Triết hơi ngại ngùng với sự điển trai của mình nên không có cơ hội show ảnh 😄</div>
-                            </div>
-                        `;
-                    } else {
-                        polaroid.innerHTML = `
-                            <img src="${item.url}" style="width: 100%; height: 90px; object-fit: cover; background: #f0f0f0;" alt="TMĐT" loading="eager">
-                        `;
-                    }
-                    
-                    // Vị trí ban đầu - phân bố ngang đều xếp thành hàng
-                    const spacing = 90 / (polaroidItems.length + 1);
-                    const startLeft = spacing * (index + 1) + 5;
-                    const startTop = Math.random() * 60 + 20; // Vị trí dọc ngẫu nhiên
-                    
-                    polaroid.style.left = startLeft + '%';
-                    polaroid.style.top = startTop + '%';
-                    polaroid.style.position = 'absolute';
-                    polaroid.style.animation = 'none';
-                    
-                    container.appendChild(polaroid);
-                    
-                    // Tạo animation bay lên xuống VĨNH VIỄN
-                    animatePolaroidVertical(polaroid);
+                    setTimeout(() => {
+                        const polaroid = document.createElement('div');
+                        polaroid.className = 'polaroid';
+                        
+                        if (item.type === 'text') {
+                            // Text cho mobile - TO HƠN và dễ đọc
+                            const mobileText = isMobile ? item.content : 'Triết hơi ngại ngùng với sự điển trai nên không có cơ hội show ảnh 😄';
+                            polaroid.innerHTML = `
+                                <div style="width: 100%; height: ${isMobile ? '90px' : '110px'}; background: white; display: flex; align-items: center; justify-content: center; padding: ${isMobile ? '10px' : '15px'}; text-align: center;">
+                                    <div style="font-size: ${isMobile ? '0.6em' : '0.55em'}; color: #333; line-height: 1.4; font-weight: 600; word-wrap: break-word;">${mobileText}</div>
+                                </div>
+                            `;
+                        } else {
+                            polaroid.innerHTML = `
+                                <img src="${item.url}" style="width: 100%; height: ${isMobile ? '60px' : '90px'}; object-fit: cover; background: #f0f0f0;" alt="TMĐT" loading="eager">
+                            `;
+                        }
+                        
+                        // Vị trí cho mobile (2 polaroid) vs desktop (10 polaroid)
+                        let startLeft, startTop;
+                        
+                        if (isMobile) {
+                            // 2 polaroid: trái 25% và phải 75%
+                            startLeft = index === 0 ? 25 : 75;
+                            startTop = Math.random() * 50 + 25;
+                        } else {
+                            // 10 polaroid: phân bố đều
+                            const spacing = 90 / (polaroidItems.length + 1);
+                            startLeft = spacing * (index + 1) + 5;
+                            startTop = Math.random() * 60 + 20;
+                        }
+                        
+                        polaroid.style.left = startLeft + '%';
+                        polaroid.style.top = startTop + '%';
+                        polaroid.style.position = 'absolute';
+                        polaroid.style.animation = 'none';
+                        polaroid.style.opacity = '0';
+                        polaroid.style.transition = 'opacity 0.5s';
+                        
+                        container.appendChild(polaroid);
+                        
+                        // Fade in
+                        setTimeout(() => {
+                            polaroid.style.opacity = '1';
+                        }, 100);
+                        
+                        // Animation bay lên xuống
+                        animatePolaroidVertical(polaroid);
+                    }, delay);
                 });
             }).catch(err => {
                 console.error('Error loading images:', err);
             });
         }
         
-        // Hàm tạo animation bay lên xuống - CHỈ THẲNG, KHÔNG XOAY
+        // Hàm tạo animation - tốc độ chậm hơn trên mobile
         function animatePolaroidVertical(element) {
             let posY = parseFloat(element.style.top);
-            let velocityY = (Math.random() * 0.15 + 0.1) * (Math.random() > 0.5 ? 1 : -1); // Tốc độ dọc
+            const isMobile = window.innerWidth <= 768;
+            const speedMultiplier = isMobile ? 0.5 : 1; // Mobile chậm hơn 50%
+            
+            let velocityY = (Math.random() * 0.15 + 0.1) * speedMultiplier * (Math.random() > 0.5 ? 1 : -1);
             
             function animate() {
-                // Cập nhật vị trí dọc
                 posY += velocityY;
                 
-                // Đổi hướng khi chạm biên trên hoặc dưới
                 if (posY <= 5 || posY >= 85) {
                     velocityY *= -1;
                     posY = Math.max(5, Math.min(85, posY));
                 }
                 
-                // Áp dụng vị trí mới - CHỈ TOP, KHÔNG XOAY, KHÔNG DAO ĐỘNG NGANG
                 element.style.top = posY + '%';
-                
-                // Lặp lại VĨNH VIỄN
                 requestAnimationFrame(animate);
             }
             
