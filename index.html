@@ -966,13 +966,29 @@
             .letter-body {
                 font-size: 1em;
             }
+            
+            /* Polaroid trên mobile - Tối ưu để đẹp và dễ nhìn */
             .polaroid {
-                width: 80px;
+                width: 70px; /* Nhỏ hơn để vừa màn hình */
+                padding: 6px;
+                padding-bottom: 25px;
             }
-            .polaroid-image {
-                height: 70px;
-                font-size: 1.5em;
+            
+            .polaroid img {
+                height: 60px !important; /* Chiều cao vừa phải */
             }
+            
+            /* Polaroid chữ của Triết trên mobile */
+            .polaroid div[style*="height: 110px"] {
+                height: 80px !important; /* Giảm chiều cao */
+                padding: 8px !important;
+            }
+            
+            .polaroid div[style*="font-size: 0.55em"] {
+                font-size: 0.45em !important; /* Chữ nhỏ hơn để vừa */
+                line-height: 1.2 !important;
+            }
+            
             .car {
                 font-size: 2em;
             }
@@ -993,6 +1009,38 @@
             .letter-modal-content {
                 width: 95%;
                 padding: 25px;
+            }
+        }
+
+        /* Thêm responsive cho màn hình nhỏ hơn */
+        @media (max-width: 480px) {
+            .polaroid {
+                width: 60px; /* Nhỏ hơn nữa cho màn hình rất nhỏ */
+                padding: 5px;
+                padding-bottom: 20px;
+            }
+            
+            .polaroid img {
+                height: 50px !important;
+            }
+            
+            /* Polaroid chữ của Triết trên màn hình rất nhỏ */
+            .polaroid div[style*="height: 110px"] {
+                height: 70px !important;
+                padding: 6px !important;
+            }
+            
+            .polaroid div[style*="font-size: 0.55em"] {
+                font-size: 0.38em !important;
+                line-height: 1.15 !important;
+            }
+            
+            .hero-title {
+                font-size: 2.5em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2em;
             }
         }
     </style>
