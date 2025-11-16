@@ -1025,6 +1025,16 @@
                 width: 95%;
                 padding: 25px;
             }
+            /* Bỏ hết CSS cũ về polaroid, chỉ giữ 1 bộ duy nhất */
+            .polaroid {
+                width: 100px !important; /* TO HƠN - rộng nhất có thể */
+                padding: 8px !important;
+                padding-bottom: 32px !important;
+            }
+            
+            .polaroid img {
+                height: 80px !important; /* CAO HƠN cho ảnh */
+            }
         }
     </style>
 </head>
@@ -1232,6 +1242,9 @@
                         Chúc Triết luôn giữ vững phong thái đĩnh đạc, chỉn chu và nghiêm túc đúng chuẩn "người đàn ông có kế hoạch". 
                         Hy vọng sự nghiêm túc của bạn chính là nguồn cảm hứng để cả lớp chăm chỉ hơn. 📋👔
                     </p>
+                    <p style="padding-left: 20px; margin-top: 10px; font-style: italic; color: #999; font-size: 0.9em;">
+                        <em>💡 Note: Triết hơi ngại ngùng với sự điển trai của mình nên không có cơ hội để show lên cho mn gòi 😄</em>
+                    </p>
                 </div>
 
                 <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin: 20px 0;">
@@ -1354,7 +1367,6 @@
                 { type: 'image', url: 'https://i.ibb.co/G383x39t/7.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/8LbxsKb2/8.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/FN70tMQ/9-2.jpg' },
-                { type: 'text', content: 'Triết hơi ngại ngùng với sự điển trai nên không có cơ hội show ảnh 😄' }
             ];
             
             // Preload ảnh
@@ -1384,8 +1396,8 @@
                         
                         if (item.type === 'text') {
                             polaroid.innerHTML = `
-                                <div style="width: 100%; height: ${isMobile ? '90px' : '110px'}; background: white; display: flex; align-items: center; justify-content: center; padding: ${isMobile ? '10px' : '15px'}; text-align: center;">
-                                    <div style="font-size: ${isMobile ? '0.48em' : '0.55em'}; color: #333; line-height: 1.5; font-weight: 600; word-wrap: break-word; max-width: 100%;">${item.content}</div>
+                                <div style="width: 100%; height: ${isMobile ? '100px' : '110px'}; background: white; display: flex; align-items: center; justify-content: center; padding: ${isMobile ? '8px' : '15px'}; text-align: center; box-sizing: border-box;">
+                                    <div style="font-size: ${isMobile ? '0.42em' : '0.55em'}; color: #333; line-height: 1.4; font-weight: 600; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">${item.content}</div>
                                 </div>
                             `;
                         } else {
