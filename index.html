@@ -967,6 +967,17 @@
                 font-size: 1em;
             }
             
+            /* Polaroid mobile - TO HƠN cho cả ảnh và text */
+            .polaroid {
+                width: 95px; /* Tăng từ 90px lên 95px */
+                padding: 8px;
+                padding-bottom: 32px;
+            }
+            
+            .polaroid img {
+                height: 75px !important; /* Tăng từ 70px lên 75px */
+            }
+            
             /* Polaroid mobile - TO HƠN */
             .polaroid {
                 width: 90px; /* Tăng từ 80px lên 90px */
@@ -1373,11 +1384,12 @@
                         
                         if (item.type === 'text') {
                             polaroid.innerHTML = `
-                                <div style="width: 100%; height: ${isMobile ? '70px' : '110px'}; background: white; display: flex; align-items: center; justify-content: center; padding: ${isMobile ? '8px' : '15px'}; text-align: center;">
-                                    <div style="font-size: ${isMobile ? '0.55em' : '0.55em'}; color: #333; line-height: 1.4; font-weight: 600; word-wrap: break-word;">${item.content}</div>
+                                <div style="width: 100%; height: ${isMobile ? '90px' : '110px'}; background: white; display: flex; align-items: center; justify-content: center; padding: ${isMobile ? '10px' : '15px'}; text-align: center;">
+                                    <div style="font-size: ${isMobile ? '0.48em' : '0.55em'}; color: #333; line-height: 1.5; font-weight: 600; word-wrap: break-word; max-width: 100%;">${item.content}</div>
                                 </div>
                             `;
                         } else {
+
                             polaroid.innerHTML = `
                                 <img src="${item.url}" style="width: 100%; height: ${isMobile ? '70px' : '90px'}; object-fit: cover; background: #f0f0f0;" alt="TMĐT" loading="lazy">
                             `;
