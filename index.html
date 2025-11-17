@@ -807,19 +807,19 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 9998;
+            z-index: 1;
             overflow: hidden;
         }
 
         .polaroid {
             position: absolute;
-            width: 100px;
+            width: 75px;
             background: white;
-            padding: 10px;
-            padding-bottom: 40px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: transform 0.05s linear;
-            will-change: transform, left, top;
+            padding: 7px;
+            padding-bottom: 25px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+            will-change: left, top;
+            transform-origin: center center;
         }
 
         .polaroid img {
@@ -967,43 +967,32 @@
                 font-size: 1em;
             }
             
-            /* Polaroid mobile - TO HƠN cho cả ảnh và text */
+            /* Polaroid mobile - nhỏ và mờ để không che nội dung */
             .polaroid {
-                width: 95px; /* Tăng từ 90px lên 95px */
-                padding: 8px;
-                padding-bottom: 32px;
+                width: 60px !important;
+                padding: 5px !important;
+                padding-bottom: 20px !important;
+                opacity: 0.8 !important;
+                box-shadow: 0 3px 8px rgba(0,0,0,0.2) !important;
             }
             
             .polaroid img {
-                height: 75px !important; /* Tăng từ 70px lên 75px */
+                height: 45px !important;
             }
             
-            /* Polaroid mobile - TO HƠN */
-            .polaroid {
-                width: 90px; /* Tăng từ 80px lên 90px */
-                padding: 8px;
-                padding-bottom: 30px;
+            /* Nội dung chính nổi bật hơn */
+            .main-content-wrapper {
+                position: relative;
+                z-index: 10;
             }
             
-            .polaroid img {
-                height: 70px !important; /* Tăng từ 60px lên 70px */
-            }
-            .polaroid {
-                width: 80px;
-                padding: 8px;
-                padding-bottom: 30px;
+            .letter-card {
+                position: relative;
+                z-index: 11;
+                background: rgba(255, 255, 255, 0.1) !important;
+                backdrop-filter: blur(20px) !important;
             }
             
-            .polaroid img {
-                height: 60px !important;
-            }
-            .polaroid {
-                width: 80px;
-            }
-            .polaroid-image {
-                height: 70px;
-                font-size: 1.5em;
-            }
             .car {
                 font-size: 2em;
             }
@@ -1024,16 +1013,6 @@
             .letter-modal-content {
                 width: 95%;
                 padding: 25px;
-            }
-            /* Bỏ hết CSS cũ về polaroid, chỉ giữ 1 bộ duy nhất */
-            .polaroid {
-                width: 100px !important; /* TO HƠN - rộng nhất có thể */
-                padding: 8px !important;
-                padding-bottom: 32px !important;
-            }
-            
-            .polaroid img {
-                height: 80px !important; /* CAO HƠN cho ảnh */
             }
         }
     </style>
@@ -1267,7 +1246,7 @@
                     🎉 HAPPY 19/11 - INTERNATIONAL MEN'S DAY! 🎉
                 </p>
 
-                <p style="text-align: center; font-size: 1.1em; margin-top: 20px;">
+                <p style="text-align: center; font-size: 1.1em; margin-top: 20px;"></p>
                     Chúc toàn thể dàn nam thần TMĐT ngày 19/11 vừa vui, vừa chất, vừa rực rỡ như pin 100% — 
                     <strong class="highlight">không tụt mood, không tụt pin và không tụt… điểm!</strong>
                 </p>
@@ -1351,12 +1330,12 @@
             }, 3000);
         }
 
-        // Create floating polaroids - Tối ưu cho mobile
+        // Create floating polaroids - Xếp theo viền hình chữ nhật
         function createFloatingPolaroids() {
             const container = document.getElementById('floatingPolaroids');
             const isMobile = window.innerWidth <= 768;
             
-            // Danh sách ảnh đầy đủ cho tất cả các thiết bị
+            // Danh sách ảnh
             const polaroidItems = [
                 { type: 'image', url: 'https://i.ibb.co/hzfskGJ/1.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/jP9nSBch/2.jpg' },
@@ -1366,79 +1345,56 @@
                 { type: 'image', url: 'https://i.ibb.co/3mBLh9Z3/6.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/G383x39t/7.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/8LbxsKb2/8.jpg' },
-                { type: 'image', url: 'https://i.ibb.co/FN70tMQ/9-2.jpg' },
+                { type: 'image', url: 'https://i.ibb.co/FN70tMQ/9-2.jpg' }
             ];
             
             // Preload ảnh
-            const imagePromises = polaroidItems
-                .filter(item => item.type === 'image')
-                .map(item => {
-                    return new Promise((resolve) => {
-                        const img = new Image();
-                        img.onload = () => resolve(item.url);
-                        img.onerror = () => resolve(item.url);
-                        img.src = item.url;
-                    });
+            const imagePromises = polaroidItems.map(item => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(item.url);
+                    img.onerror = () => resolve(item.url);
+                    img.src = item.url;
                 });
+            });
             
             // Tạo polaroid sau khi load xong
             Promise.all(imagePromises).then(() => {
                 console.log('✅ Images loaded! Creating polaroids...');
                 
                 polaroidItems.forEach((item, index) => {
-                    // Mobile: load từng cái cách nhau 800ms để mượt hơn
-                    // Desktop: load ngay
-                    const delay = isMobile ? index * 800 : 0;
+                    const delay = isMobile ? index * 400 : index * 200;
                     
                     setTimeout(() => {
                         const polaroid = document.createElement('div');
                         polaroid.className = 'polaroid';
                         
-                        if (item.type === 'text') {
-                            polaroid.innerHTML = `
-                                <div style="width: 100%; height: ${isMobile ? '100px' : '110px'}; background: white; display: flex; align-items: center; justify-content: center; padding: ${isMobile ? '8px' : '15px'}; text-align: center; box-sizing: border-box;">
-                                    <div style="font-size: ${isMobile ? '0.42em' : '0.55em'}; color: #333; line-height: 1.4; font-weight: 600; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">${item.content}</div>
-                                </div>
-                            `;
-                        } else {
-
-                            polaroid.innerHTML = `
-                                <img src="${item.url}" style="width: 100%; height: ${isMobile ? '70px' : '90px'}; object-fit: cover; background: #f0f0f0;" alt="TMĐT" loading="lazy">
-                            `;
-                        }
+                        polaroid.innerHTML = `
+                            <img src="${item.url}" style="width: 100%; height: ${isMobile ? '50px' : '80px'}; object-fit: cover; background: #f0f0f0; border-radius: 2px;" alt="TMĐT" loading="lazy">
+                        `;
                         
-                        // Vị trí phân bố đều cho cả mobile và desktop
-                        let startLeft, startTop;
+                        // TÍNH VỊ TRÍ THEO VIỀN HÌNH CHỮ NHẬT
+                        const position = calculateRectanglePosition(index, polaroidItems.length, isMobile);
                         
-                        if (isMobile) {
-                            // Mobile: 10 polaroid xếp 2 cột
-                            const col = index % 2; // Cột 0 hoặc 1
-                            const row = Math.floor(index / 2); // Hàng 0,1,2,3,4
-                            startLeft = col === 0 ? 20 : 70; // Cột trái 20%, phải 70%
-                            startTop = 15 + (row * 15); // Mỗi hàng cách 15%
-                        } else {
-                            // Desktop: phân bố đều như cũ
-                            const spacing = 90 / (polaroidItems.length + 1);
-                            startLeft = spacing * (index + 1) + 5;
-                            startTop = Math.random() * 60 + 20;
-                        }
-                        
-                        polaroid.style.left = startLeft + '%';
-                        polaroid.style.top = startTop + '%';
+                        polaroid.style.left = position.x + '%';
+                        polaroid.style.top = position.y + '%';
                         polaroid.style.position = 'absolute';
-                        polaroid.style.animation = 'none';
                         polaroid.style.opacity = '0';
                         polaroid.style.transition = 'opacity 0.5s';
+                        
+                        // Lưu thông tin để animation
+                        polaroid.dataset.index = index;
+                        polaroid.dataset.currentPos = position.currentPos;
                         
                         container.appendChild(polaroid);
                         
                         // Fade in
                         setTimeout(() => {
-                            polaroid.style.opacity = '1';
+                            polaroid.style.opacity = isMobile ? '0.8' : '1';
                         }, 100);
                         
-                        // Animation bay lên xuống
-                        animatePolaroidVertical(polaroid);
+                        // Animation chạy theo viền
+                        animatePolaroidRectangle(polaroid, polaroidItems.length, isMobile);
                     }, delay);
                 });
             }).catch(err => {
@@ -1446,57 +1402,99 @@
             });
         }
         
-        // Hàm tạo animation - chạy theo vòng tròn
-        function animatePolaroidVertical(element) {
-            const isMobile = window.innerWidth <= 768;
+        // Tính toán vị trí theo viền hình chữ nhật
+        function calculateRectanglePosition(index, total, isMobile) {
+            // Kích thước hình chữ nhật (% của viewport) - ĐỒNG BỘ VỚI animatePolaroidRectangle
+            const rect = {
+                left: isMobile ? 8 : 5,
+                right: isMobile ? 60 : 95,   // THAY ĐỔI: TỪ 70 → 60 (đồng bộ với animation)
+                top: isMobile ? 10 : 8,
+                bottom: isMobile ? 90 : 92
+            };
             
-            if (isMobile) {
-                // MOBILE: Animation vòng tròn xung quanh màn hình
-                const centerX = 50; // Trung tâm X (%)
-                const centerY = 50; // Trung tâm Y (%)
-                const radius = 45; // Bán kính vòng tròn (%) - RA NGOÀI VIỀN
-                
-                // Tốc độ xoay ngẫu nhiên cho mỗi polaroid
-                const speed = (Math.random() * 0.0008 + 0.0005) * (Math.random() > 0.5 ? 1 : -1);
-                let angle = Math.random() * Math.PI * 2; // Góc bắt đầu ngẫu nhiên
-                
-                function animateCircle() {
-                    angle += speed;
-                    
-                    // Tính toán vị trí theo vòng tròn
-                    const x = centerX + radius * Math.cos(angle);
-                    const y = centerY + radius * Math.sin(angle);
-                    
-                    element.style.left = x + '%';
-                    element.style.top = y + '%';
-                    
-                    // Xoay polaroid nhẹ theo hướng di chuyển
-                    const rotation = (angle * 180 / Math.PI);
-                    element.style.transform = `rotate(${rotation * 0.05}deg)`;
-                    
-                    requestAnimationFrame(animateCircle);
-                }
-                
-                animateCircle();
+            const width = rect.right - rect.left;
+            const height = rect.bottom - rect.top;
+            const perimeter = 2 * (width + height);
+            
+            // Phân bố đều theo chu vi
+            const spacing = perimeter / total;
+            const currentPos = (spacing * index) % perimeter;
+            
+            let x, y;
+            
+            if (currentPos < width) {
+                // Cạnh TRÊN (trái → phải)
+                x = rect.left + currentPos;
+                y = rect.top;
+            } else if (currentPos < width + height) {
+                // Cạnh PHẢI (trên → dưới)
+                x = rect.right;
+                y = rect.top + (currentPos - width);
+            } else if (currentPos < 2 * width + height) {
+                // Cạnh DƯỚI (phải → trái)
+                x = rect.right - (currentPos - width - height);
+                y = rect.bottom;
             } else {
-                // DESKTOP: Animation bay lên xuống như cũ
-                let posY = parseFloat(element.style.top);
-                let velocityY = (Math.random() * 0.15 + 0.1) * (Math.random() > 0.5 ? 1 : -1);
-                
-                function animate() {
-                    posY += velocityY;
-                    
-                    if (posY <= 5 || posY >= 85) {
-                        velocityY *= -1;
-                        posY = Math.max(5, Math.min(85, posY));
-                    }
-                    
-                    element.style.top = posY + '%';
-                    requestAnimationFrame(animate);
+                // Cạnh TRÁI (dưới → trên)
+                x = rect.left;
+                y = rect.bottom - (currentPos - 2 * width - height);
+            }
+            
+            return { x, y, currentPos };
+        }
+        
+        // Animation chạy theo viền hình chữ nhật
+        function animatePolaroidRectangle(element, total, isMobile) {
+            const rect = {
+                left: isMobile ? 8 : 5,
+                right: isMobile ? 60 : 95,   // ĐỒNG BỘ với calculateRectanglePosition (60)
+                top: isMobile ? 10 : 8,
+                bottom: isMobile ? 90 : 92
+            };
+            
+            const width = rect.right - rect.left;
+            const height = rect.bottom - rect.top;
+            const perimeter = 2 * (width + height);
+            
+            // Tốc độ di chuyển – TĂNG CHO MOBILE
+            const baseSpeed = isMobile ? 0.24 : 0.03;   // mobile nhanh, desktop hơi nhanh
+            const speed = baseSpeed * (Math.random() * 0.3 + 0.85);
+            
+            let currentPos = parseFloat(element.dataset.currentPos);
+            
+            function animate() {
+                currentPos += speed;
+                if (currentPos >= perimeter) {
+                    currentPos -= perimeter;
                 }
                 
-                animate();
+                let x, y;
+                
+                if (currentPos < width) {
+                    // Cạnh TRÊN
+                    x = rect.left + currentPos;
+                    y = rect.top;
+                } else if (currentPos < width + height) {
+                    // Cạnh PHẢI
+                    x = rect.right;
+                    y = rect.top + (currentPos - width);
+                } else if (currentPos < 2 * width + height) {
+                    // Cạnh DƯỚI
+                    x = rect.right - (currentPos - width - height);
+                    y = rect.bottom;
+                } else {
+                    // Cạnh TRÁI
+                    x = rect.left;
+                    y = rect.bottom - (currentPos - 2 * width - height);
+                }
+                
+                element.style.left = x + '%';
+                element.style.top = y + '%';
+                
+                requestAnimationFrame(animate);
             }
+            
+            animate();
         }
 
         // Create floating balloons
