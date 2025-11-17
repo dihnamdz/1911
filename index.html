@@ -1330,12 +1330,11 @@
             }, 3000);
         }
 
-        // Create floating polaroids - Xếp theo viền hình chữ nhật
+        // Create floating polaroids – load tới đâu hiện tới đó
         function createFloatingPolaroids() {
             const container = document.getElementById('floatingPolaroids');
             const isMobile = window.innerWidth <= 768;
-            
-            // Danh sách ảnh
+
             const polaroidItems = [
                 { type: 'image', url: 'https://i.ibb.co/hzfskGJ/1.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/jP9nSBch/2.jpg' },
@@ -1347,81 +1346,73 @@
                 { type: 'image', url: 'https://i.ibb.co/8LbxsKb2/8.jpg' },
                 { type: 'image', url: 'https://i.ibb.co/FN70tMQ/9-2.jpg' }
             ];
-            
-            // Preload ảnh
-            const imagePromises = polaroidItems.map(item => {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.onload = () => resolve(item.url);
-                    img.onerror = () => resolve(item.url);
-                    img.src = item.url;
-                });
-            });
-            
-            // Tạo polaroid sau khi load xong
-            Promise.all(imagePromises).then(() => {
-                console.log('✅ Images loaded! Creating polaroids...');
-                
-                polaroidItems.forEach((item, index) => {
-                    const delay = isMobile ? index * 400 : index * 200;
-                    
+
+            const total = polaroidItems.length;
+
+            polaroidItems.forEach((item, index) => {
+                const img = new Image();
+
+                // hàm tạo 1 polaroid sau khi ảnh (hoặc lỗi) xong
+                const createOnePolaroid = () => {
+                    const polaroid = document.createElement('div');
+                    polaroid.className = 'polaroid';
+
+                    polaroid.innerHTML = `
+                        <img src="${item.url}"
+                             style="width: 100%; height: ${isMobile ? '50px' : '80px'};
+                                    object-fit: cover; background: #f0f0f0; border-radius: 2px;"
+                             alt="TMĐT" loading="lazy">
+                    `;
+
+                    const position = calculateRectanglePosition(index, total, isMobile);
+
+                    polaroid.style.left = position.x + '%';
+                    polaroid.style.top = position.y + '%';
+                    polaroid.style.position = 'absolute';
+                    polaroid.style.opacity = '0';
+                    polaroid.style.transition = 'opacity 0.5s';
+
+                    polaroid.dataset.index = index;
+                    polaroid.dataset.currentPos = position.currentPos;
+
+                    container.appendChild(polaroid);
+
                     setTimeout(() => {
-                        const polaroid = document.createElement('div');
-                        polaroid.className = 'polaroid';
-                        
-                        polaroid.innerHTML = `
-                            <img src="${item.url}" style="width: 100%; height: ${isMobile ? '50px' : '80px'}; object-fit: cover; background: #f0f0f0; border-radius: 2px;" alt="TMĐT" loading="lazy">
-                        `;
-                        
-                        // TÍNH VỊ TRÍ THEO VIỀN HÌNH CHỮ NHẬT
-                        const position = calculateRectanglePosition(index, polaroidItems.length, isMobile);
-                        
-                        polaroid.style.left = position.x + '%';
-                        polaroid.style.top = position.y + '%';
-                        polaroid.style.position = 'absolute';
-                        polaroid.style.opacity = '0';
-                        polaroid.style.transition = 'opacity 0.5s';
-                        
-                        // Lưu thông tin để animation
-                        polaroid.dataset.index = index;
-                        polaroid.dataset.currentPos = position.currentPos;
-                        
-                        container.appendChild(polaroid);
-                        
-                        // Fade in
-                        setTimeout(() => {
-                            polaroid.style.opacity = isMobile ? '0.8' : '1';
-                        }, 100);
-                        
-                        // Animation chạy theo viền
-                        animatePolaroidRectangle(polaroid, polaroidItems.length, isMobile);
-                    }, delay);
-                });
-            }).catch(err => {
-                console.error('Error loading images:', err);
+                        polaroid.style.opacity = isMobile ? '0.8' : '1';
+                    }, 50);
+
+                    animatePolaroidRectangle(polaroid, total, isMobile);
+                };
+
+                img.onload = createOnePolaroid;
+                img.onerror = () => {
+                    console.warn('Image load error, still creating polaroid:', item.url);
+                    createOnePolaroid();
+                };
+
+                img.src = item.url;
             });
         }
-        
+
         // Tính toán vị trí theo viền hình chữ nhật
         function calculateRectanglePosition(index, total, isMobile) {
-            // Kích thước hình chữ nhật (% của viewport) - ĐỒNG BỘ VỚI animatePolaroidRectangle
             const rect = {
-                left: isMobile ? 8 : 5,
-                right: isMobile ? 60 : 95,   // THAY ĐỔI: TỪ 70 → 60 (đồng bộ với animation)
-                top: isMobile ? 10 : 8,
-                bottom: isMobile ? 90 : 92
+                // MOBILE: chạy sát viền, chỉ quanh 4 mép
+                left:   isMobile ? 3 : 5,
+                right:  isMobile ? 97 : 95,
+                top:    isMobile ? 5 : 8,
+                bottom: isMobile ? 95 : 92
             };
-            
+
             const width = rect.right - rect.left;
             const height = rect.bottom - rect.top;
             const perimeter = 2 * (width + height);
-            
-            // Phân bố đều theo chu vi
+
             const spacing = perimeter / total;
             const currentPos = (spacing * index) % perimeter;
-            
+
             let x, y;
-            
+
             if (currentPos < width) {
                 // Cạnh TRÊN (trái → phải)
                 x = rect.left + currentPos;
@@ -1439,61 +1430,56 @@
                 x = rect.left;
                 y = rect.bottom - (currentPos - 2 * width - height);
             }
-            
+
             return { x, y, currentPos };
         }
-        
+
         // Animation chạy theo viền hình chữ nhật
         function animatePolaroidRectangle(element, total, isMobile) {
             const rect = {
-                left: isMobile ? 8 : 5,
-                right: isMobile ? 93 : 95,   // ĐỒNG BỘ với calculateRectanglePosition (60)
-                top: isMobile ? 10 : 8,
-                bottom: isMobile ? 90 : 92
+                // PHẢI GIỐNG HỆT HÀM TRÊN
+                left:   isMobile ? 3 : 5,
+                right:  isMobile ? 97 : 95,
+                top:    isMobile ? 5 : 8,
+                bottom: isMobile ? 95 : 92
             };
-            
+
             const width = rect.right - rect.left;
             const height = rect.bottom - rect.top;
             const perimeter = 2 * (width + height);
-            
-            // Tốc độ di chuyển – TĂNG CHO MOBILE
-            const baseSpeed = isMobile ? 0.24 : 0.03;   // mobile nhanh, desktop hơi nhanh
+
+            // tốc độ: mobile nhanh, desktop vừa
+            const baseSpeed = isMobile ? 0.18 : 0.04;
             const speed = baseSpeed * (Math.random() * 0.3 + 0.85);
-            
-            let currentPos = parseFloat(element.dataset.currentPos);
-            
+
+            let currentPos = parseFloat(element.dataset.currentPos) || 0;
+
             function animate() {
                 currentPos += speed;
-                if (currentPos >= perimeter) {
-                    currentPos -= perimeter;
-                }
-                
+                if (currentPos >= perimeter) currentPos -= perimeter;
+
                 let x, y;
-                
+
                 if (currentPos < width) {
-                    // Cạnh TRÊN
                     x = rect.left + currentPos;
                     y = rect.top;
                 } else if (currentPos < width + height) {
-                    // Cạnh PHẢI
                     x = rect.right;
                     y = rect.top + (currentPos - width);
                 } else if (currentPos < 2 * width + height) {
-                    // Cạnh DƯỚI
                     x = rect.right - (currentPos - width - height);
                     y = rect.bottom;
                 } else {
-                    // Cạnh TRÁI
                     x = rect.left;
                     y = rect.bottom - (currentPos - 2 * width - height);
                 }
-                
+
                 element.style.left = x + '%';
                 element.style.top = y + '%';
-                
+
                 requestAnimationFrame(animate);
             }
-            
+
             animate();
         }
 
