@@ -1446,27 +1446,57 @@
             });
         }
         
-        // Hàm tạo animation - tốc độ chậm hơn trên mobile
+        // Hàm tạo animation - chạy theo vòng tròn
         function animatePolaroidVertical(element) {
-            let posY = parseFloat(element.style.top);
             const isMobile = window.innerWidth <= 768;
-            const speedMultiplier = isMobile ? 0.3 : 1; // Mobile chậm hơn 70%
             
-            let velocityY = (Math.random() * 0.15 + 0.1) * speedMultiplier * (Math.random() > 0.5 ? 1 : -1);
-            
-            function animate() {
-                posY += velocityY;
+            if (isMobile) {
+                // MOBILE: Animation vòng tròn xung quanh màn hình
+                const centerX = 50; // Trung tâm X (%)
+                const centerY = 50; // Trung tâm Y (%)
+                const radius = 45; // Bán kính vòng tròn (%) - RA NGOÀI VIỀN
                 
-                if (posY <= 5 || posY >= 85) {
-                    velocityY *= -1;
-                    posY = Math.max(5, Math.min(85, posY));
+                // Tốc độ xoay ngẫu nhiên cho mỗi polaroid
+                const speed = (Math.random() * 0.0008 + 0.0005) * (Math.random() > 0.5 ? 1 : -1);
+                let angle = Math.random() * Math.PI * 2; // Góc bắt đầu ngẫu nhiên
+                
+                function animateCircle() {
+                    angle += speed;
+                    
+                    // Tính toán vị trí theo vòng tròn
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    
+                    element.style.left = x + '%';
+                    element.style.top = y + '%';
+                    
+                    // Xoay polaroid nhẹ theo hướng di chuyển
+                    const rotation = (angle * 180 / Math.PI);
+                    element.style.transform = `rotate(${rotation * 0.05}deg)`;
+                    
+                    requestAnimationFrame(animateCircle);
                 }
                 
-                element.style.top = posY + '%';
-                requestAnimationFrame(animate);
+                animateCircle();
+            } else {
+                // DESKTOP: Animation bay lên xuống như cũ
+                let posY = parseFloat(element.style.top);
+                let velocityY = (Math.random() * 0.15 + 0.1) * (Math.random() > 0.5 ? 1 : -1);
+                
+                function animate() {
+                    posY += velocityY;
+                    
+                    if (posY <= 5 || posY >= 85) {
+                        velocityY *= -1;
+                        posY = Math.max(5, Math.min(85, posY));
+                    }
+                    
+                    element.style.top = posY + '%';
+                    requestAnimationFrame(animate);
+                }
+                
+                animate();
             }
-            
-            animate();
         }
 
         // Create floating balloons
